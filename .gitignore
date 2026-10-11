@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+vault.dat
+venv/
+.venv/
+.vscode/
