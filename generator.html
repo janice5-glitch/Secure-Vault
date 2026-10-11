@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block body %}
+<div class="card" style="max-width:560px;margin:auto"><h1>Password Generator</h1>
+<div class="card mono" id="out" style="font-size:22px;text-align:center;word-break:break-all;background:#0b1220">—</div>
+<div class="bar"><i id="bar"></i></div><div class="mut" id="lab"></div>
+<label>Length: <span id="lv">16</span></label><input type="range" id="len" min="8" max="40" value="16" style="padding:0">
+<label><input type="checkbox" id="up" checked style="width:auto"> Uppercase</label>
+<label><input type="checkbox" id="di" checked style="width:auto"> Digits</label>
+<label><input type="checkbox" id="sy" checked style="width:auto"> Symbols</label><br>
+<button class="btn" onclick="gen()">Generate</button> <button class="btn sec" onclick="navigator.clipboard&&navigator.clipboard.writeText(out.textContent)">Copy</button></div>
+<script>async function gen(){lv.textContent=len.value;const u=`/api/generate?length=${len.value}&upper=${+up.checked}&digits=${+di.checked}&symbols=${+sy.checked}`;
+const d=await (await fetch(u)).json();out.textContent=d.password;bar.style.width=(d.score+1)*20+'%';bar.style.background=COL[d.score];lab.textContent=`${d.label} - ${d.entropy} bits`}
+len.oninput=gen;up.onchange=di.onchange=sy.onchange=gen;gen()</script>{% endblock %}

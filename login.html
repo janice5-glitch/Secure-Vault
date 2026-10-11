@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block body %}
+<div class="card center"><div class="lock">🔐</div>
+<h1 style="text-align:center">{{ 'Create Master Password' if setup else 'Unlock Vault' }}</h1>
+<p class="mut" style="text-align:center">{{ 'Choose a strong master password. It cannot be recovered if forgotten.' if setup else 'Enter your master password to decrypt the vault.' }}</p>
+<form method="post"><label>Master Password</label><input type="password" name="master" id="m" autofocus required>
+{% if setup %}<div class="bar"><i id="bar"></i></div><div class="mut" id="lab"></div>
+<label>Confirm Password</label><input type="password" name="confirm" required>{% endif %}
+<br><button class="btn" style="width:100%">{{ 'Create Vault' if setup else 'Unlock' }}</button></form></div>
+{% if setup %}<script>m.addEventListener('input',()=>strength(m.value,bar,lab))</script>{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+:root{--bg:#0f172a;--card:#1e293b;--line:#334155;--txt:#e2e8f0;--mut:#94a3b8;--acc:#38bdf8;--ok:#22c55e;--bad:#ef4444}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--txt)}
+nav{display:flex;gap:18px;align-items:center;padding:14px 28px;background:var(--card);border-bottom:1px solid var(--line)}
+nav b{font-size:18px;color:var(--acc);margin-right:auto}nav a{color:var(--txt);text-decoration:none;font-size:14px}nav a:hover{color:var(--acc)}
+main{max-width:980px;margin:28px auto;padding:0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:20px}
+.center{max-width:420px;margin:70px auto}h1,h2{margin-top:0}
+label{display:block;margin:14px 0 6px;font-size:13px;color:var(--mut)}
+input,textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:#0b1220;color:var(--txt);font-size:15px}
+.btn{display:inline-block;padding:10px 18px;border:0;border-radius:8px;background:var(--acc);color:#04202e;font-weight:600;cursor:pointer;text-decoration:none;font-size:14px}
+.btn.sec{background:#334155;color:var(--txt)}.btn.red{background:var(--bad);color:#fff}.btn.sm{padding:5px 10px;font-size:12px}
+.flash{padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:14px}.flash.error{background:#450a0a;color:#fecaca}.flash.ok{background:#052e16;color:#bbf7d0}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--mut);font-weight:500}
+.stats{display:flex;gap:16px;margin-bottom:20px}.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.stat b{font-size:26px;display:block;color:var(--acc)}.bar{height:8px;border-radius:5px;background:#0b1220;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;transition:.3s}.row{display:flex;gap:10px;align-items:center}.row>*{flex:1}.row>.btn{flex:none}
+.mono{font-family:Consolas,monospace}.tag{padding:2px 8px;border-radius:10px;font-size:11px}
+.lock{font-size:42px;text-align:center}.mut{color:var(--mut);font-size:13px}

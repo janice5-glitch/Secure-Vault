@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block body %}
+<div class="stats"><div class="stat"><b>{{ total }}</b>Saved credentials</div>
+<div class="stat"><b style="color:{{ '#ef4444' if weak else '#22c55e' }}">{{ weak }}</b>Weak passwords</div>
+<div class="stat"><b>AES-256</b>GCM encrypted vault</div></div>
+<div class="card"><form class="row" method="get"><input name="q" value="{{ q }}" placeholder="Search site or username..."><button class="btn">Search</button><a class="btn sec" href="{{ url_for('edit') }}">+ Add</a></form><br>
+<table><tr><th>Website</th><th>Username</th><th>Password</th><th>Strength</th><th>Updated</th><th></th></tr>
+{% for e in entries %}<tr><td><b>{{ e.site }}</b></td><td>{{ e.username }}</td>
+<td><span class="mono pw" data-pw="{{ e.password }}">••••••••••</span></td>
+<td class="st" data-pw="{{ e.password }}"></td><td class="mut">{{ e.updated }}</td>
+<td><button class="btn sm sec" onclick="show(this)">Show</button> <button class="btn sm sec" onclick="copy(this)">Copy</button> <a class="btn sm" href="{{ url_for('edit', entry_id=e.id) }}">Edit</a>
+<form method="post" action="{{ url_for('delete', entry_id=e.id) }}" style="display:inline" onsubmit="return confirm('Delete this entry?')"><button class="btn sm red">Del</button></form></td></tr>
+{% else %}<tr><td colspan="6" class="mut">No entries yet. Click “+ Add”.</td></tr>{% endfor %}</table></div>
+<script>
+function show(b){const s=b.closest('tr').querySelector('.pw');const h=s.textContent.startsWith('•');s.textContent=h?s.dataset.pw:'••••••••••';b.textContent=h?'Hide':'Show'}
+function copy(b){navigator.clipboard&&navigator.clipboard.writeText(b.closest('tr').querySelector('.pw').dataset.pw);b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1200);
+setTimeout(()=>navigator.clipboard&&navigator.clipboard.writeText(''),20000)}
+document.querySelectorAll('.st').forEach(async td=>{const r=await fetch('/api/strength',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:td.dataset.pw})});const d=await r.json();td.innerHTML=`<span class="tag" style="background:${COL[d.score]}33;color:${COL[d.score]}">${d.label}</span>`})
+</script>{% endblock %}

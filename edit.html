@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block body %}
+<div class="card" style="max-width:560px;margin:auto"><h1>{{ 'Edit Entry' if entry else 'Add New Entry' }}</h1>
+<form method="post"><label>Website / App</label><input name="site" value="{{ entry.site if entry }}" required>
+<label>Username / Email</label><input name="username" value="{{ entry.username if entry }}">
+<label>Password</label><div class="row"><input name="password" id="pw" value="{{ entry.password if entry }}" required><button type="button" class="btn sec" onclick="gen()">Generate</button></div>
+<div class="bar"><i id="bar"></i></div><div class="mut" id="lab"></div>
+<label>Notes</label><textarea name="notes" rows="3">{{ entry.notes if entry }}</textarea><br>
+<button class="btn">Save Encrypted</button> <a class="btn sec" href="{{ url_for('dashboard') }}">Cancel</a></form></div>
+<script>pw.addEventListener('input',()=>strength(pw.value,bar,lab));if(pw.value)strength(pw.value,bar,lab);
+async function gen(){const d=await (await fetch('/api/generate?length=16')).json();pw.value=d.password;strength(d.password,bar,lab)}</script>{% endblock %}

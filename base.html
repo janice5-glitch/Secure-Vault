@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><title>SecureVault - Password Manager</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+{% if session.get('token') %}<nav><b>🔐 SecureVault</b><a href="{{ url_for('dashboard') }}">Vault</a><a href="{{ url_for('edit') }}">+ Add Entry</a><a href="{{ url_for('generator') }}">Generator</a><a href="{{ url_for('logout') }}">Lock</a></nav>{% endif %}
+<main>{% with m = get_flashed_messages(with_categories=true) %}{% for c, t in m %}<div class="flash {{ c }}">{{ t }}</div>{% endfor %}{% endwith %}
+{% block body %}{% endblock %}</main>
+<script>
+const COL=["#ef4444","#f97316","#eab308","#22c55e","#16a34a"];
+async function strength(pw,bar,lab){const r=await fetch('/api/strength',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})});
+const d=await r.json();bar.style.width=(pw?(d.score+1)*20:0)+'%';bar.style.background=COL[d.score];
+lab.textContent=pw?`${d.label} - ${d.entropy} bits`+(d.tips.length?' | Tip: '+d.tips[0]:''):'';}
+</script></body></html>
